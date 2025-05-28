@@ -1,4 +1,4 @@
-package com.library_a3.library_a3.controllers;
+package com.library_a3.library_a3.Controllers;
 
 import com.library_a3.library_a3.domains.Book;
 import com.library_a3.library_a3.shared.dtos.CreateBookDTO;
