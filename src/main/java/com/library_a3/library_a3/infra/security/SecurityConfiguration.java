@@ -29,9 +29,9 @@ public class SecurityConfiguration {
                         authorize -> authorize
                                 .requestMatchers(HttpMethod.POST, "/credentials/login").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/credentials/register").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/students").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/students").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/books").hasRole("employee")
+                                .requestMatchers(HttpMethod.GET, "/students").hasAuthority("EMPLOYEE")
+                                .requestMatchers(HttpMethod.POST, "/students").hasAuthority("EMPLOYEE")
+                                .requestMatchers(HttpMethod.POST, "/books").hasAuthority("EMPLOYEE")
                         .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

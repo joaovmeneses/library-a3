@@ -13,6 +13,7 @@ public class CreateStudentService {
     private StudentRespository studentRespository;
 
     public Student execute(CreateStudentDTO data){
+        System.out.println("HERE");
         Student studentByCpf = this.studentRespository.findByCpf(data.cpf);
         if(studentByCpf != null){
             throw new RuntimeException("cpf already in use");

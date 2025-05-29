@@ -24,9 +24,8 @@ public class Credentials implements UserDetails {
     private String email;
     @Column
     private String pass;
-
+    @Column
     private Role role;
-
     @Column(name = "created_at")
     private Date createdAt;
     @Column(name = "updated_at")
@@ -50,8 +49,8 @@ public class Credentials implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(this.role == Role.EMPLOYEE) return List.of(new SimpleGrantedAuthority("employee"));
-        else return List.of(new SimpleGrantedAuthority("student"));
+        if(this.role == Role.EMPLOYEE) return List.of(new SimpleGrantedAuthority("EMPLOYEE"));
+        else return List.of(new SimpleGrantedAuthority("EMPLOYEE"));
     }
 
     @Override
