@@ -16,7 +16,6 @@ import com.library_a3.library_a3.shared.enums.Role;
 
 @RestController
 @RequestMapping("/credentials")
-
 public class AuthController {
 
     @Autowired

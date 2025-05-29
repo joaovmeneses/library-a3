@@ -1,5 +1,6 @@
 package com.library_a3.library_a3.infra.security;
 
+import com.library_a3.library_a3.shared.enums.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,9 +30,10 @@ public class SecurityConfiguration {
                         authorize -> authorize
                                 .requestMatchers(HttpMethod.POST, "/credentials/login").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/credentials/register").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/students").hasAuthority("EMPLOYEE")
-                                .requestMatchers(HttpMethod.POST, "/students").hasAuthority("EMPLOYEE")
-                                .requestMatchers(HttpMethod.POST, "/books").hasAuthority("EMPLOYEE")
+                                .requestMatchers(HttpMethod.GET, "/students").hasAuthority(Role.EMPLOYEE.toString())
+                                .requestMatchers(HttpMethod.POST, "/students").hasAuthority(Role.EMPLOYEE.toString())
+                                .requestMatchers(HttpMethod.POST, "/books").hasAuthority(Role.EMPLOYEE.toString())
+                                .requestMatchers(HttpMethod.POST, "/borrows").hasAuthority(Role.EMPLOYEE.toString())
                         .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

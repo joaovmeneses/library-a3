@@ -1,8 +1,8 @@
 package com.library_a3.library_a3.shared.enums;
 
 public enum Role {
-    EMPLOYEE("employee"),
-    STUDENT("student");
+    EMPLOYEE("EMPLOYEE"),
+    STUDENT("STUDENT");
 
     private String role;
 
