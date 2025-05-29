@@ -30,6 +30,7 @@ public class SecurityConfiguration {
                                 .requestMatchers(HttpMethod.POST, "/credentials/login").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/credentials/register").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/students").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/students").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/books").hasRole("employee")
                         .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
