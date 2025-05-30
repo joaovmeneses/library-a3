@@ -12,7 +12,8 @@ public class CreateStudentService {
 
     @Autowired
     private StudentRespository studentRespository;
-    @Autowired private CreateCredentialService createCredentialService;
+    @Autowired
+    private CreateCredentialService createCredentialService;
 
     public Student execute(CreateStudentDTO data){
         Student studentByCpf = this.studentRespository.findByCpf(data.cpf);
@@ -26,7 +27,7 @@ public class CreateStudentService {
         }
 
         Credentials credential = this.createCredentialService.execute(data.email, data.pass);
-        Student student = new Student(data.name, data.cpf, data.phone, "credential.");
+        Student student = new Student(data.name, data.cpf, data.phone, credential.getId());
         return this.studentRespository.save(student);
     }
 }

@@ -4,8 +4,6 @@ import com.library_a3.library_a3.domains.Student;
 import com.library_a3.library_a3.repositories.StudentRespository;
 import com.library_a3.library_a3.services.CreateStudentService;
 import com.library_a3.library_a3.shared.dtos.CreateStudentDTO;
-import com.library_a3.library_a3.shared.dtos.LoginResponseDTO;
-import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,13 +25,8 @@ public class StudentController {
     }
 
     @PostMapping()
-    public ResponseEntity create(@RequestBody CreateStudentDTO body){
+    public ResponseEntity<Student> create(@RequestBody CreateStudentDTO body){
         Student student = this.createStudentService.execute(body);
         return ResponseEntity.ok(student);
-    }
-
-    @PostMapping()
-    public ResponseEntity teste(@RequestBody LoginResponseDTO body){
-
     }
 }

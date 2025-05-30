@@ -6,7 +6,10 @@ import com.library_a3.library_a3.repositories.CredentialsRepository;
 import com.library_a3.library_a3.repositories.StudentRespository;
 import com.library_a3.library_a3.shared.dtos.LoginResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CreateCredentialService {
     @Autowired
     private CredentialsRepository credentialsRepository;
@@ -18,16 +21,8 @@ public class CreateCredentialService {
             throw new RuntimeException("email already registered");
         }
 
-        Credentials credential = new Credentials(email, pass);
+        String hashedPassword = new BCryptPasswordEncoder().encode(pass);
+        Credentials credential = new Credentials(email, hashedPassword);
         return this.credentialsRepository.save(credential);
     }
 }
-
-
-/*
-Receber um email e passa e criar uma credencial no banco de dados
-
-verificar se o email ja existe no banco;
-
-injetar esse serviço no CreateStudentService
- */
