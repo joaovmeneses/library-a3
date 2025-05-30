@@ -18,8 +18,8 @@ public class LoginService {
 
     public String execute(Credentials credential) throws Exception {
         UsernamePasswordAuthenticationToken usernamePassword = new UsernamePasswordAuthenticationToken(credential.getUsername(), credential.getPassword());
-        System.out.println(usernamePassword);
         var auth = this.authenticationManager.authenticate(usernamePassword);
+
         return this.tokenService.generateToken((Credentials) auth.getPrincipal());
     }
 }

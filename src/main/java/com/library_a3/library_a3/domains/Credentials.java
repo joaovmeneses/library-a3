@@ -50,7 +50,7 @@ public class Credentials implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if(this.role == Role.EMPLOYEE) return List.of(new SimpleGrantedAuthority("EMPLOYEE"));
-        else return List.of(new SimpleGrantedAuthority("EMPLOYEE"));
+        else return List.of(new SimpleGrantedAuthority("STUDENT"));
     }
 
     @Override
