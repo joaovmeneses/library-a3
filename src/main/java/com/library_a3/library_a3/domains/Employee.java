@@ -1,5 +1,6 @@
 package com.library_a3.library_a3.domains;
 
+import com.library_a3.library_a3.shared.dtos.CreateEmployeeDTO;
 import com.library_a3.library_a3.shared.enums.employees.EmployeeCategoryEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -36,5 +37,8 @@ public class Employee {
         this.credentialId = credentialId;
         this.createdAt = new Date();
         this.updatedAt = new Date();
+    }
+
+    public Employee(CreateEmployeeDTO body) {
     }
 }
