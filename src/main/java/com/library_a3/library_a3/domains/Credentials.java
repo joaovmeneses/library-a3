@@ -11,12 +11,12 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-@Getter
-@Setter
 @Entity(name="credentials")
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Getter
+@Setter
 public class Credentials implements UserDetails {
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     private String id;

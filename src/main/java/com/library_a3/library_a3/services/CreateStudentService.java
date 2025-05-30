@@ -1,5 +1,6 @@
 package com.library_a3.library_a3.services;
 
+import com.library_a3.library_a3.domains.Credentials;
 import com.library_a3.library_a3.domains.Student;
 import com.library_a3.library_a3.repositories.StudentRespository;
 import com.library_a3.library_a3.shared.dtos.CreateStudentDTO;
@@ -11,6 +12,8 @@ public class CreateStudentService {
 
     @Autowired
     private StudentRespository studentRespository;
+    @Autowired
+    private CreateCredentialService createCredentialService;
 
     public Student execute(CreateStudentDTO data){
         Student studentByCpf = this.studentRespository.findByCpf(data.cpf);
@@ -23,7 +26,8 @@ public class CreateStudentService {
             throw new RuntimeException("phone already in use");
         }
 
-        Student student = new Student(data.name, data.cpf, data.phone);
+        Credentials credential = this.createCredentialService.execute(data.email, data.pass);
+        Student student = new Student(data.name, data.cpf, data.phone, credential.getId());
         return this.studentRespository.save(student);
     }
 }

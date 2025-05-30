@@ -7,4 +7,6 @@ public class CreateStudentDTO {
     public String name;
     public String cpf;
     public String phone;
+    public String email;
+    public String pass;
 }
