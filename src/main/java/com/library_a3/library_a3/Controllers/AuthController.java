@@ -28,17 +28,5 @@ public class AuthController {
         String token = this.loginService.execute(new Credentials(body.email, body.pass));
         return ResponseEntity.ok(new LoginResponseDTO(token));
     }
-
-    @PostMapping("/register")
-    public ResponseEntity register (@RequestBody CreateCredentialsDTO body) throws Exception {
-        UserDetails credentialsAlreadyExists = this.credentialsRepository.findByEmail(body.email);
-        if(credentialsAlreadyExists != null) return ResponseEntity.unprocessableEntity().build();
-
-        String hashedPassword = new BCryptPasswordEncoder().encode(body.pass);
-        Credentials credentials = new Credentials(body.email, hashedPassword, Role.EMPLOYEE);
-
-        this.credentialsRepository.save(credentials);
-
-        return ResponseEntity.ok().build();
     }
 }
