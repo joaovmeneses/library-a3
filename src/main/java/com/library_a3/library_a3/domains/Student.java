@@ -27,15 +27,19 @@ public class Student {
     private Date createdAt;
     @Column(name = "updated_at")
     private Date updatedAt;
+    @Column(name = "credential_id")
+    private String credentialId;
 
-    public Student(String name, String cpf, String phone){
+    public Student(String name, String cpf, String phone, String credentialId){
         this.name = name;
         this.cpf = cpf;
         this.phone = phone;
         this.createdAt = new Date();
         this.updatedAt = new Date();
+        this.credentialId = credentialId;
 
     }
+
 
 
 }
