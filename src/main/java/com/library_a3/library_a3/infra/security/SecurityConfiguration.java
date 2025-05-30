@@ -34,7 +34,8 @@ public class SecurityConfiguration {
                                 .requestMatchers(HttpMethod.POST, "/students").hasAuthority(Role.EMPLOYEE.toString())
                                 .requestMatchers(HttpMethod.POST, "/books").hasAuthority(Role.EMPLOYEE.toString())
                                 .requestMatchers(HttpMethod.POST, "/borrows").hasAuthority(Role.EMPLOYEE.toString())
-                        .anyRequest().authenticated())
+                                .requestMatchers(HttpMethod.GET, "/borrows").hasAuthority(Role.EMPLOYEE.toString())
+                                .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
