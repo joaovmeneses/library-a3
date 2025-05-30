@@ -28,5 +28,4 @@ public class AuthController {
         String token = this.loginService.execute(new Credentials(body.email, body.pass));
         return ResponseEntity.ok(new LoginResponseDTO(token));
     }
-    }
 }
