@@ -7,9 +7,10 @@ import com.library_a3.library_a3.shared.dtos.borrows.CreateBorrowDTO;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+import org.springframework.web.bind.annotation.RestController;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/borrows")
 public class BorrowController {

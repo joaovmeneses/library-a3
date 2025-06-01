@@ -5,15 +5,12 @@ import com.library_a3.library_a3.repositories.CredentialsRepository;
 import com.library_a3.library_a3.services.LoginService;
 import com.library_a3.library_a3.shared.CreateCredentialsDTO;
 import com.library_a3.library_a3.shared.dtos.LoginResponseDTO;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import com.library_a3.library_a3.shared.enums.Role;
+import org.springframework.web.bind.annotation.RestController;
 
-
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/credentials")
 public class AuthController {
