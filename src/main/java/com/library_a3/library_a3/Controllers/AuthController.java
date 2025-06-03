@@ -22,7 +22,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody CreateCredentialsDTO body) throws Exception {
-        String token = this.loginService.execute(new Credentials(body.email, body.pass));
-        return ResponseEntity.ok(new LoginResponseDTO(token));
+        LoginResponseDTO response = this.loginService.execute(new Credentials(body.email, body.pass));
+        return ResponseEntity.ok(response);
     }
 }
