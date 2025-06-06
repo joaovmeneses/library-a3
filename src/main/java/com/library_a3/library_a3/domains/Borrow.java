@@ -16,13 +16,21 @@ import java.util.Date;
 @AllArgsConstructor
 public class Borrow {
     @Id @GeneratedValue(strategy = GenerationType.UUID)
-    String id;
-    @Column(name = "book_id", nullable = false)
-    String bookId;
-    @Column(name = "student_id", nullable = false)
-    String studentId;
-    @Column
-    BorrowStatusEnum status;
+    private String id;
+    @Column(name = "book_id", nullable = false, insertable = false, updatable = false)
+    private String bookId;
+    @Column(name = "student_id", nullable = false, insertable = false, updatable = false)
+    private String studentId;
+    @Column()
+    private BorrowStatusEnum status;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "student_id")
+    private Student student;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "book_id")
+    private Book book;
+
     @Column(name = "created_at")
     private Date createdAt;
     @Column(name = "updated_at")

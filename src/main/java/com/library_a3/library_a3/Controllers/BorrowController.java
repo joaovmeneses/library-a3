@@ -28,6 +28,6 @@ public class BorrowController {
 
     @GetMapping()
     public List<Borrow> getAll() {
-        return this.BorrowRepository.findAll();
+        return this.BorrowRepository.findAllWithRelationship();
     }
 }
