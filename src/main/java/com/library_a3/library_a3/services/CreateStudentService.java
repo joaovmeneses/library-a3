@@ -4,6 +4,7 @@ import com.library_a3.library_a3.domains.Credentials;
 import com.library_a3.library_a3.domains.Student;
 import com.library_a3.library_a3.repositories.StudentRespository;
 import com.library_a3.library_a3.shared.dtos.CreateStudentDTO;
+import com.library_a3.library_a3.shared.enums.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +27,7 @@ public class CreateStudentService {
             throw new RuntimeException("phone already in use");
         }
 
-        Credentials credential = this.createCredentialService.execute(data.email, data.pass);
+        Credentials credential = this.createCredentialService.execute(data.email, data.pass, Role.STUDENT);
         Student student = new Student(data.name, data.cpf, data.phone, credential.getId());
         return this.studentRespository.save(student);
     }

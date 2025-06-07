@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface BorrowRepository extends JpaRepository<Borrow, String> {
+    List<Borrow> findByStudentId(String studentId);
     @Query("SELECT b "
             + "FROM borrow b "
             + "JOIN FETCH b.student "

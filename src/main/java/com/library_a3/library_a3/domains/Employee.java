@@ -38,7 +38,4 @@ public class Employee {
         this.createdAt = new Date();
         this.updatedAt = new Date();
     }
-
-    public Employee(CreateEmployeeDTO body) {
-    }
 }

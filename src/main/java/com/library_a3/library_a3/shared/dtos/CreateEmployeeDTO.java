@@ -9,4 +9,6 @@ import lombok.Getter;
 public class CreateEmployeeDTO {
     private String name;
     private EmployeeCategoryEnum category;
+    private String email;
+    private String pass;
 }
