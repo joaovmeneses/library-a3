@@ -21,7 +21,7 @@ public class GetAllBorrowsService {
 
         Claim authority = this.tokenService.getAuthority(token);
         if(authority.asString().equals(Role.EMPLOYEE.toString())) {
-            return this.borrowRepository.findAll();
+            return this.borrowRepository.findAllWithRelationship();
         }
         Claim studentId = this.tokenService.getUserId(token);
         return this.borrowRepository.findByStudentId(studentId.asString());
