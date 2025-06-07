@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.Claim;
 import com.library_a3.library_a3.domains.Credentials;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -16,10 +17,18 @@ import java.time.ZoneOffset;
 public class TokenService {
     @Value("${api.security.token.secret}")
     private String secret;
-    public String generateToken(Credentials credentias) {
+    public String generateToken(Credentials credentias, String userId) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
-            return JWT.create().withIssuer("auth-api").withSubject(credentias.getEmail()).withExpiresAt(this.genExpirationDate()).sign(algorithm);
+            return JWT
+                    .create()
+                    .withIssuer("auth-api")
+                    .withClaim("authority", credentias.getRole().toString())
+                    .withClaim("credentialId", credentias.getId())
+                    .withClaim("userId", userId)
+                    .withSubject(credentias.getEmail())
+                    .withExpiresAt(this.genExpirationDate())
+                    .sign(algorithm);
         } catch (JWTCreationException err) {
             throw new RuntimeException("Error while generate token", err);
         }
@@ -35,6 +44,31 @@ public class TokenService {
                     .getSubject();
         } catch (JWTVerificationException e) {
             return ""; // mudar para uma exception
+        }
+    }
+    public Claim getAuthority(String token) {
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(secret);
+            return JWT.require(algorithm)
+                    .withIssuer("auth-api")
+                    .build()
+                    .verify(token)
+                    .getClaim("authority");
+        } catch (JWTVerificationException e) {
+            throw new JWTVerificationException("Error while validate Token");
+        }
+    }
+
+    public Claim getUserId(String token) {
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(secret);
+            return JWT.require(algorithm)
+                    .withIssuer("auth-api")
+                    .build()
+                    .verify(token)
+                    .getClaim("userId");
+        } catch (JWTVerificationException e) {
+            throw new JWTVerificationException("Error while validate Token");
         }
     }
 
