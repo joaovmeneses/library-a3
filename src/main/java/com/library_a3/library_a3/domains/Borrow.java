@@ -17,18 +17,20 @@ import java.util.Date;
 public class Borrow {
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-    @Column(name = "book_id", nullable = false, insertable = false, updatable = false)
+    @Column(name = "book_id", nullable = false)
     private String bookId;
-    @Column(name = "student_id", nullable = false, insertable = false, updatable = false)
+    @Column(name = "student_id", nullable = false)
     private String studentId;
     @Column()
     private BorrowStatusEnum status;
+    @Column(name = "date_to_return")
+    private Date dateToReturn;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "student_id")
+    @JoinColumn(name = "student_id", insertable = false, updatable = false)
     private Student student;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "book_id")
+    @JoinColumn(name = "book_id", insertable = false, updatable = false)
     private Book book;
 
     @Column(name = "created_at")
@@ -38,10 +40,11 @@ public class Borrow {
     @Column(name = "deleted_at")
     private Date deletedAt;
 
-    public Borrow(String bookId, String studentId) {
+    public Borrow(String bookId, String studentId, Date dateToReturn) {
         this.bookId = bookId;
         this.studentId = studentId;
         this.status = BorrowStatusEnum.BORROWED;
+        this.dateToReturn = dateToReturn;
         this.createdAt = new Date();
         this.updatedAt = new Date();
     }

@@ -31,7 +31,7 @@ public class BorrowController {
 
     @PostMapping()
     public Borrow create(@NotNull @RequestBody CreateBorrowDTO body) {
-        return this.borrowBookService.execute(body.getBookId(), body.getStudentId());
+        return this.borrowBookService.execute(body.getBookId(), body.getStudentId(), body.getDateToReturn());
     }
 
     @GetMapping()

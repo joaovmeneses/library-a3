@@ -9,6 +9,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -18,7 +19,7 @@ public class BorrowBookService {
     @Autowired
     private BorrowRepository borrowRepository;
 
-    public Borrow execute(String bookId, String studentId) {
+    public Borrow execute(String bookId, String studentId, Date dateToReturn) {
         Optional<Book> optionalBook = this.bookRepository.findById(bookId);
 
         if(optionalBook.isEmpty()) {
@@ -30,7 +31,8 @@ public class BorrowBookService {
             throw new RuntimeException("The book needs to have the status AVAILABLE");
         }
 
-        Borrow borrow = this.borrowRepository.save(new Borrow(book.getId(), studentId));
+        Borrow b = new Borrow(book.getId(), studentId, dateToReturn);
+        Borrow borrow = this.borrowRepository.save(b);
         book.setBorrowed();
         this.bookRepository.save(book);
         return borrow;
