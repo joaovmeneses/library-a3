@@ -1,10 +1,12 @@
 package com.library_a3.library_a3.repositories;
 
 import com.library_a3.library_a3.domains.Borrow;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BorrowRepository extends JpaRepository<Borrow, String> {
     List<Borrow> findByStudentId(String studentId);
@@ -13,4 +15,10 @@ public interface BorrowRepository extends JpaRepository<Borrow, String> {
             + "JOIN FETCH b.student "
             + "JOIN FETCH b.book")
     List<Borrow> findAllWithRelationship();
+    
+    @Query("SELECT b "
+        + "FROM borrow b "
+        + "JOIN FETCH b.bok"
+    )
+    Optional<Borrow> findByIdWithBook(String id);
 }
