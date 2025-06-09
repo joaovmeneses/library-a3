@@ -54,10 +54,10 @@ public class BorrowController {
     }
 
     @PatchMapping("/{id}/return")
-    public String returnBorrow(@PathVariable("id") String id){
+    public Borrow returnBorrow(@PathVariable("id") String id){
 
-        // return this.returnBorrowService.execute(id);
-        return id;
+        return this.returnBorrowService.execute(id);
+        
         
     }
 }

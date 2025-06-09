@@ -25,7 +25,7 @@ public class ReturnBorrowService {
     private BookRepository bookRepository;
 
     public Borrow execute(String borrowId){
-        Optional<Borrow> optionalBorrow = this.borrowRepository.findByIdWithBook(borrowId);
+        Optional<Borrow> optionalBorrow = this.borrowRepository.findByIdWithRelationship(borrowId);
         
         if(optionalBorrow == null){
             throw new EntityNotFoundException("Borrow not found");
@@ -40,7 +40,7 @@ public class ReturnBorrowService {
         borrow.setStatus(BorrowStatusEnum.RETURNED);
         borrow.getBook().setStatus(BookStatusEnum.AVAILABLE);
         borrowRepository.save(borrow);
-
+        // bookRepository.save(borrow.getBook());
         
         return borrow;
     }
