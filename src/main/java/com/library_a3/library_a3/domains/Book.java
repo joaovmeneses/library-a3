@@ -1,14 +1,19 @@
 package com.library_a3.library_a3.domains;
 
+import java.util.Date;
+
 import com.library_a3.library_a3.shared.enums.BookCategoryEnum;
 import com.library_a3.library_a3.shared.enums.BookStatusEnum;
-import jakarta.persistence.*;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.Date;
 
 @Entity(name = "book")
 @NoArgsConstructor
@@ -58,5 +63,8 @@ public class Book {
         this.status = BookStatusEnum.AVAILABLE;
     }
 
+    public void deleteBook(){
+        this.deletedAt = new Date();
+    }
 
 }
