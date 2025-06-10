@@ -46,10 +46,3 @@ public class BookController {
         return this.deleteBookService.execute(id);
     }
 }
-
-/*
- * @PatchMapping("/{id}/return")
-    public Borrow returnBorrow(@PathVariable("id") String id){
-        return this.returnBorrowService.execute(id);
-    }
- */

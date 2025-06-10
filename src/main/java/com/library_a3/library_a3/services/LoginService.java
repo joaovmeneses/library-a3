@@ -1,5 +1,12 @@
 package com.library_a3.library_a3.services;
 
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.stereotype.Service;
+
 import com.library_a3.library_a3.domains.Credentials;
 import com.library_a3.library_a3.domains.Employee;
 import com.library_a3.library_a3.domains.Student;
@@ -8,13 +15,8 @@ import com.library_a3.library_a3.repositories.EmployeeRepository;
 import com.library_a3.library_a3.repositories.StudentRespository;
 import com.library_a3.library_a3.shared.dtos.LoginResponseDTO;
 import com.library_a3.library_a3.shared.enums.Role;
-import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class LoginService {
