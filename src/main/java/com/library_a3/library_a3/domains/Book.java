@@ -50,5 +50,13 @@ public class Book {
         this.status = BookStatusEnum.BORROWED;
     }
 
+    public void setAvailable(){
+        if(this.status != BookStatusEnum.BORROWED) {
+            System.out.println("Status need be BORROWED");
+            return;
+        }
+        this.status = BookStatusEnum.AVAILABLE;
+    }
+
 
 }

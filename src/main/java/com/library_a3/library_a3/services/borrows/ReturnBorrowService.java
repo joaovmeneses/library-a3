@@ -26,22 +26,21 @@ public class ReturnBorrowService {
 
     public Borrow execute(String borrowId){
         Optional<Borrow> optionalBorrow = this.borrowRepository.findByIdWithRelationship(borrowId);
-        
-        if(optionalBorrow == null){
+
+        if(optionalBorrow.isEmpty()){
             throw new EntityNotFoundException("Borrow not found");
         }
 
         Borrow borrow = optionalBorrow.get();
 
         if(borrow.getStatus() != BorrowStatusEnum.BORROWED){
-            throw new EntityNotFoundException("Borrow not found");
+            throw new EntityNotFoundException("Borrow not BORROWED");
         } 
         
         borrow.setStatus(BorrowStatusEnum.RETURNED);
         borrow.getBook().setStatus(BookStatusEnum.AVAILABLE);
         borrowRepository.save(borrow);
-        // bookRepository.save(borrow.getBook());
-        
+
         return borrow;
     }
 }

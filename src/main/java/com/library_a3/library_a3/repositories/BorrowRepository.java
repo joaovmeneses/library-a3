@@ -20,7 +20,6 @@ public interface BorrowRepository extends JpaRepository<Borrow, String> {
         + "FROM borrow b "
         + "JOIN FETCH b.student "
         + "JOIN FETCH b.book "
-        + "WHERE b.id = :id"
-    )
+        + "WHERE b.id = :id")
     Optional<Borrow> findByIdWithRelationship(String id);
 }
