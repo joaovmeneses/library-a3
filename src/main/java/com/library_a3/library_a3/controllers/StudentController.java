@@ -25,7 +25,7 @@ public class StudentController {
 
     @GetMapping()
     public List<Student> allStudents(){
-        return this.studentRespository.findAll();
+        return this.studentRespository.findAllByDeletedAtIsNull();
     }
 
     @PostMapping()

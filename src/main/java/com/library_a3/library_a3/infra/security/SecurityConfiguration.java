@@ -42,6 +42,7 @@ public class SecurityConfiguration {
                                 .requestMatchers(HttpMethod.POST, "/students").hasAuthority(Role.EMPLOYEE.toString())
                                 .requestMatchers(HttpMethod.POST, "/books").hasAuthority(Role.EMPLOYEE.toString())
                                 .requestMatchers(HttpMethod.GET, "/books").hasAuthority(Role.EMPLOYEE.toString())
+                                .requestMatchers(HttpMethod.GET, "/books/available").hasAuthority(Role.EMPLOYEE.toString())
                                 .requestMatchers(HttpMethod.POST, "/borrows").hasAuthority(Role.EMPLOYEE.toString())
                                 .requestMatchers(HttpMethod.GET, "/borrows").hasAnyAuthority(Role.EMPLOYEE.toString(), Role.STUDENT.toString())
                                 .requestMatchers(HttpMethod.PATCH, "/borrows/{id}/return").hasAuthority(Role.EMPLOYEE.toString())
