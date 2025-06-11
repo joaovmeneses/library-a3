@@ -38,7 +38,12 @@ public class BookController {
 
     @GetMapping()
     public List<Book> getAll() {
-        return this.bookRepository.findAll();
+        return this.bookRepository.findAllByDeletedAtIsNull();
+    }
+
+    @GetMapping("/available")
+    public List<Book> getAllAvailable() {
+        return this.bookRepository.getAllAvailable();
     }
 
     @DeleteMapping("/{id}/delete")

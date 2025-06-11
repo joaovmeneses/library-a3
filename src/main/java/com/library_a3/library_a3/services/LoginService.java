@@ -49,8 +49,7 @@ public class LoginService {
         if(student.isEmpty()) {
             throw new EntityNotFoundException("Not found student");
         }
-        System.out.println("student.get()");
-        System.out.println(student.get());
+
         String token = this.tokenService.generateToken((Credentials) auth.getPrincipal(), student.get().getId());
         return new LoginResponseDTO(token, credentialFromDb.getRole());
 
