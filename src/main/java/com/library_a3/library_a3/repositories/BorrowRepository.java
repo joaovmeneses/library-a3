@@ -10,6 +10,12 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BorrowRepository extends JpaRepository<Borrow, String> {
+    @Query("SELECT b "
+            + "FROM borrow b "
+            + "JOIN FETCH b.student "
+            + "JOIN FETCH b.book "
+            + "WHERE b.studentId = :studentId"
+    )
     List<Borrow> findByStudentId(String studentId);
     @Query("SELECT b "
             + "FROM borrow b "
