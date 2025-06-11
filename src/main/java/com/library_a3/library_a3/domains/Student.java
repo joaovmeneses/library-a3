@@ -27,6 +27,8 @@ public class Student {
     private Date createdAt;
     @Column(name = "updated_at")
     private Date updatedAt;
+    @Column(name = "deleted_at")
+    private Date deletedAt;
     @Column(name = "credential_id")
     private String credentialId;
 
@@ -37,9 +39,13 @@ public class Student {
         this.createdAt = new Date();
         this.updatedAt = new Date();
         this.credentialId = credentialId;
-
     }
 
-
+    public void delete() {
+        if(this.deletedAt != null) {
+            throw new RuntimeException("Student already deleted");
+        }
+        this.deletedAt = new Date();
+    }
 
 }

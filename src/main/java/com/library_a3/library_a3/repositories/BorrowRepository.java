@@ -2,6 +2,7 @@ package com.library_a3.library_a3.repositories;
 
 import com.library_a3.library_a3.domains.Borrow;
 
+import com.library_a3.library_a3.shared.enums.borrows.BorrowStatusEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -22,4 +23,12 @@ public interface BorrowRepository extends JpaRepository<Borrow, String> {
         + "JOIN FETCH b.book "
         + "WHERE b.id = :id")
     Optional<Borrow> findByIdWithRelationship(String id);
+
+    @Query(
+            "SELECT COUNT(*) "
+            + "FROM borrow b "
+            + "where b.status = :status "
+            + "and b.studentId = :studentId"
+    )
+    Integer countByStudentIdAndStatus(BorrowStatusEnum status, String studentId);
 }
