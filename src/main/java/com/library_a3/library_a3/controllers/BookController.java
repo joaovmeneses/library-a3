@@ -46,7 +46,7 @@ public class BookController {
         return this.bookRepository.getAllAvailable();
     }
 
-    @DeleteMapping("/{id}/delete")
+    @DeleteMapping("/{id}")
     public Book deleteBook(@PathVariable("id") String id){
         return this.deleteBookService.execute(id);
     }
