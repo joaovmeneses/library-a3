@@ -7,6 +7,7 @@ import com.library_a3.library_a3.shared.CreateCredentialsDTO;
 import com.library_a3.library_a3.shared.dtos.LoginResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,7 +22,7 @@ public class AuthController {
     private CredentialsRepository credentialsRepository;
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody CreateCredentialsDTO body) throws Exception {
+    public ResponseEntity<LoginResponseDTO> login(@Validated  @RequestBody CreateCredentialsDTO body) throws Exception {
         LoginResponseDTO response = this.loginService.execute(new Credentials(body.email, body.pass));
         return ResponseEntity.ok(response);
     }
