@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +32,7 @@ public class BookController {
     private DeleteBookService deleteBookService;
 
     @PostMapping()
-    public Book create(@NotNull @RequestBody CreateBookDTO body) {
+    public Book create(@Validated @RequestBody CreateBookDTO body) {
         Book book = new Book(body.title, body.author, body.category);
         return this.bookRepository.save(book);
     }
