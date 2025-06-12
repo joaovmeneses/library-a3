@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -43,7 +44,7 @@ public class BorrowController {
     private ReturnBorrowService returnBorrowService;
 
     @PostMapping()
-    public Borrow create(@NotNull @RequestBody CreateBorrowDTO body) {
+    public Borrow create(@Validated @RequestBody CreateBorrowDTO body) {
         return this.borrowBookService.execute(body.getBookId(), body.getStudentId(), body.getDateToReturn());
     }
 

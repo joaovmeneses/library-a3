@@ -5,6 +5,7 @@ import com.library_a3.library_a3.repositories.EmployeeRepository;
 import com.library_a3.library_a3.services.employees.CreateEmployeeService;
 import com.library_a3.library_a3.shared.dtos.CreateEmployeeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +21,7 @@ public class EmployeeController {
     private CreateEmployeeService createEmployeeService;
 
     @PostMapping()
-    public Employee create(@RequestBody CreateEmployeeDTO body) {
+    public Employee create(@Validated @RequestBody CreateEmployeeDTO body) {
         return this.createEmployeeService.execute(body);
     }
 
