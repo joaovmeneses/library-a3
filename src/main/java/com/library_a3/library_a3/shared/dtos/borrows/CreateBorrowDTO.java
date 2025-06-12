@@ -1,6 +1,7 @@
 package com.library_a3.library_a3.shared.dtos.borrows;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -15,7 +16,7 @@ public class CreateBorrowDTO {
     @NotBlank(message = "studentId is not optional")
     @Size(min = 36, max = 36)
     String studentId;
-    @NotBlank(message = "dateToReturn is not optional")
+    @NotNull(message = "dateToReturn is not optional")
     @DateTimeFormat
     Date dateToReturn;
 }
