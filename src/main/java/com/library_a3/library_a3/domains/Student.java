@@ -31,14 +31,17 @@ public class Student {
     private Date deletedAt;
     @Column(name = "credential_id")
     private String credentialId;
+    @Column(name = "organization_id")
+    private String organizationId;
 
-    public Student(String name, String cpf, String phone, String credentialId){
+    public Student(String name, String cpf, String phone, String credentialId,String organizationId){
         this.name = name;
         this.cpf = cpf;
         this.phone = phone;
         this.createdAt = new Date();
         this.updatedAt = new Date();
         this.credentialId = credentialId;
+        this.organizationId = organizationId;
     }
 
     public void delete() {

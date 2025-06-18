@@ -25,6 +25,8 @@ public class Borrow {
     private BorrowStatusEnum status;
     @Column(name = "date_to_return")
     private Date dateToReturn;
+    @Column(name = "organization_id")
+    private String organizationId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id", insertable = false, updatable = false)
@@ -32,6 +34,9 @@ public class Borrow {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id", insertable = false, updatable = false)
     private Book book;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "organization_id", insertable = false, updatable = false)
+    private Organization organization;
 
     @Column(name = "created_at")
     private Date createdAt;
@@ -40,11 +45,12 @@ public class Borrow {
     @Column(name = "deleted_at")
     private Date deletedAt;
 
-    public Borrow(String bookId, String studentId, Date dateToReturn) {
+    public Borrow(String bookId, String studentId, Date dateToReturn, String organizationId) {
         this.bookId = bookId;
         this.studentId = studentId;
         this.status = BorrowStatusEnum.BORROWED;
         this.dateToReturn = dateToReturn;
+        this.organizationId = organizationId;
         this.createdAt = new Date();
         this.updatedAt = new Date();
     }
