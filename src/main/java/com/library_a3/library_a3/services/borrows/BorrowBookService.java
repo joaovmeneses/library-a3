@@ -19,7 +19,7 @@ public class BorrowBookService {
     @Autowired
     private BorrowRepository borrowRepository;
 
-    public Borrow execute(String bookId, String studentId, Date dateToReturn) {
+    public Borrow execute(String bookId, String studentId, Date dateToReturn, String organizationId) {
         Optional<Book> optionalBook = this.bookRepository.findById(bookId);
 
         if(optionalBook.isEmpty()) {
@@ -31,7 +31,7 @@ public class BorrowBookService {
             throw new RuntimeException("The book needs to have the status AVAILABLE");
         }
 
-        Borrow b = new Borrow(book.getId(), studentId, dateToReturn);
+        Borrow b = new Borrow(book.getId(), studentId, dateToReturn, organizationId);
         Borrow borrow = this.borrowRepository.save(b);
         book.setBorrowed();
         this.bookRepository.save(book);

@@ -1,6 +1,7 @@
 package com.library_a3.library_a3.services;
 
 import com.library_a3.library_a3.domains.Credentials;
+import com.library_a3.library_a3.domains.Organization;
 import com.library_a3.library_a3.domains.Student;
 import com.library_a3.library_a3.repositories.StudentRespository;
 import com.library_a3.library_a3.shared.dtos.CreateStudentDTO;
@@ -16,7 +17,7 @@ public class CreateStudentService {
     @Autowired
     private CreateCredentialService createCredentialService;
 
-    public Student execute(CreateStudentDTO data){
+    public Student execute(CreateStudentDTO data, Organization organization){
         Student studentByCpf = this.studentRespository.findByCpf(data.cpf);
         if(studentByCpf != null){
             throw new RuntimeException("cpf already in use");
@@ -26,6 +27,8 @@ public class CreateStudentService {
         if(studentByPhone != null){
             throw new RuntimeException("phone already in use");
         }
+
+
 
         Credentials credential = this.createCredentialService.execute(data.email, data.pass, Role.STUDENT);
         Student student = new Student(data.name, data.cpf, data.phone, credential.getId());
