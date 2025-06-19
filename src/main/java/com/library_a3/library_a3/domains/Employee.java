@@ -41,4 +41,12 @@ public class Employee {
         this.createdAt = new Date();
         this.updatedAt = new Date();
     }
+    public Employee (String name, EmployeeCategoryEnum category, String credentialId) {
+        this.category = category;
+        this.name = name;
+        this.credentialId = credentialId;
+        this.organizationId = "685aceff-56c7-474a-845c-a264350caf5d";
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
+    }
 }

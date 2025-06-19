@@ -55,6 +55,7 @@ public class Book {
         this.author = author;
         this.category = category;
         this.status = BookStatusEnum.AVAILABLE;
+        this.organizationId = "685aceff-56c7-474a-845c-a264350caf5d";
         this.createdAt = new Date();
         this.updatedAt = new Date();
     }

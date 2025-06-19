@@ -43,6 +43,15 @@ public class Student {
         this.credentialId = credentialId;
         this.organizationId = organizationId;
     }
+    public Student(String name, String cpf, String phone, String credentialId){
+        this.name = name;
+        this.cpf = cpf;
+        this.phone = phone;
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
+        this.credentialId = credentialId;
+        this.organizationId = "685aceff-56c7-474a-845c-a264350caf5d";
+    }
 
     public void delete() {
         if(this.deletedAt != null) {

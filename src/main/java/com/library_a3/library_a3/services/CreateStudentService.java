@@ -17,7 +17,7 @@ public class CreateStudentService {
     @Autowired
     private CreateCredentialService createCredentialService;
 
-    public Student execute(CreateStudentDTO data, Organization organization){
+    public Student execute(CreateStudentDTO data){
         Student studentByCpf = this.studentRespository.findByCpf(data.cpf);
         if(studentByCpf != null){
             throw new RuntimeException("cpf already in use");

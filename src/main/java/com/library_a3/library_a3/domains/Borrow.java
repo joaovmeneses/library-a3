@@ -54,4 +54,13 @@ public class Borrow {
         this.createdAt = new Date();
         this.updatedAt = new Date();
     }
+    public Borrow(String bookId, String studentId, Date dateToReturn) {
+        this.bookId = bookId;
+        this.studentId = studentId;
+        this.status = BorrowStatusEnum.BORROWED;
+        this.dateToReturn = dateToReturn;
+        this.organizationId = "685aceff-56c7-474a-845c-a264350caf5d";
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
+    }
 }
