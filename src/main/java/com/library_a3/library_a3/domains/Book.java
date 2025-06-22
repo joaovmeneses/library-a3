@@ -31,6 +31,8 @@ public class Book {
     private BookCategoryEnum category;
     @Column
     private BookStatusEnum status;
+    @Column(name = "organization_id")
+    private String organizationId;
     @Column(name = "created_at")
     private Date createdAt;
     @Column(name = "updated_at")
@@ -38,11 +40,22 @@ public class Book {
     @Column(name = "deleted_at")
     private Date deletedAt;
 
+    public Book(String title, String author, BookCategoryEnum category, String organizationId){
+        this.title = title;
+        this.author = author;
+        this.category = category;
+        this.status = BookStatusEnum.AVAILABLE;
+        this.organizationId = organizationId;
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
+    }
+
     public Book(String title, String author, BookCategoryEnum category){
         this.title = title;
         this.author = author;
         this.category = category;
         this.status = BookStatusEnum.AVAILABLE;
+        this.organizationId = "685aceff-56c7-474a-845c-a264350caf5d";
         this.createdAt = new Date();
         this.updatedAt = new Date();
     }

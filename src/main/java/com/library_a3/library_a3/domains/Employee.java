@@ -24,6 +24,8 @@ public class Employee {
     EmployeeCategoryEnum category;
     @Column(name = "credential_id")
     String credentialId;
+    @Column(name = "organization_id")
+    String organizationId;
     @Column(name = "created_at")
     private Date createdAt;
     @Column(name = "updated_at")
@@ -31,10 +33,19 @@ public class Employee {
     @Column(name = "deleted_at")
     private Date deletedAt;
 
+    public Employee (String name, EmployeeCategoryEnum category, String credentialId,String organizationId) {
+        this.category = category;
+        this.name = name;
+        this.credentialId = credentialId;
+        this.organizationId = organizationId;
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
+    }
     public Employee (String name, EmployeeCategoryEnum category, String credentialId) {
         this.category = category;
         this.name = name;
         this.credentialId = credentialId;
+        this.organizationId = "685aceff-56c7-474a-845c-a264350caf5d";
         this.createdAt = new Date();
         this.updatedAt = new Date();
     }

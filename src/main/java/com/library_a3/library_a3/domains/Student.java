@@ -31,7 +31,18 @@ public class Student {
     private Date deletedAt;
     @Column(name = "credential_id")
     private String credentialId;
+    @Column(name = "organization_id")
+    private String organizationId;
 
+    public Student(String name, String cpf, String phone, String credentialId,String organizationId){
+        this.name = name;
+        this.cpf = cpf;
+        this.phone = phone;
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
+        this.credentialId = credentialId;
+        this.organizationId = organizationId;
+    }
     public Student(String name, String cpf, String phone, String credentialId){
         this.name = name;
         this.cpf = cpf;
@@ -39,6 +50,7 @@ public class Student {
         this.createdAt = new Date();
         this.updatedAt = new Date();
         this.credentialId = credentialId;
+        this.organizationId = "685aceff-56c7-474a-845c-a264350caf5d";
     }
 
     public void delete() {
