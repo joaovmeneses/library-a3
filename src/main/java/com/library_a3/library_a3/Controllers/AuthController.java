@@ -1,6 +1,7 @@
 package com.library_a3.library_a3.Controllers;
 
 import com.library_a3.library_a3.domains.Credentials;
+import com.library_a3.library_a3.domains.Organization;
 import com.library_a3.library_a3.repositories.CredentialsRepository;
 import com.library_a3.library_a3.services.LoginService;
 import com.library_a3.library_a3.shared.CreateCredentialsDTO;
@@ -22,8 +23,8 @@ public class AuthController {
     private CredentialsRepository credentialsRepository;
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseDTO> login(@Validated  @RequestBody CreateCredentialsDTO body) throws Exception {
-        LoginResponseDTO response = this.loginService.execute(new Credentials(body.email, body.pass));
+    public ResponseEntity<LoginResponseDTO> login(@Validated  @RequestBody CreateCredentialsDTO body, Organization organization) throws Exception {
+        LoginResponseDTO response = this.loginService.execute(new Credentials(body.email, body.pass), new Organization(organization.getId()));
         return ResponseEntity.ok(response);
     }
 }

@@ -2,6 +2,8 @@ package com.library_a3.library_a3.services;
 
 import java.util.Optional;
 
+import com.library_a3.library_a3.domains.Organization;
+import com.library_a3.library_a3.repositories.OrganizationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,18 +32,25 @@ public class LoginService {
     private EmployeeRepository employeeRepository;
     @Autowired
     private StudentRespository studentRespository;
+    @Autowired
+    private OrganizationRepository organizationRepository;
 
-    public LoginResponseDTO execute(Credentials data) throws Exception {
+    public LoginResponseDTO execute(Credentials data, Organization organization) throws Exception {
         UsernamePasswordAuthenticationToken usernamePassword = new UsernamePasswordAuthenticationToken(data.getUsername(), data.getPassword());
         var auth = this.authenticationManager.authenticate(usernamePassword);
         Credentials credentialFromDb = this.credentialsRepository.findByEmail(data.getEmail());
+        Optional<Organization> optionalOrganization = this.organizationRepository.findById(organization.getId());
+
+        if(optionalOrganization.isEmpty()){
+            throw new EntityNotFoundException("Not found organization");
+        }
 
         if(credentialFromDb.getRole().equals(Role.EMPLOYEE)) {
             Optional<Employee> employee = this.employeeRepository.getByCredentialId(credentialFromDb.getId());
             if(employee.isEmpty()) {
                 throw new EntityNotFoundException("Not found employee");
             }
-            String token = this.tokenService.generateToken((Credentials) auth.getPrincipal(), employee.get().getId());
+            String token = this.tokenService.generateToken((Credentials) auth.getPrincipal(), employee.get().getId(), optionalOrganization.get().getId());
             return new LoginResponseDTO(token, credentialFromDb.getRole());
         }
 
@@ -50,7 +59,7 @@ public class LoginService {
             throw new EntityNotFoundException("Not found student");
         }
 
-        String token = this.tokenService.generateToken((Credentials) auth.getPrincipal(), student.get().getId());
+        String token = this.tokenService.generateToken((Credentials) auth.getPrincipal(), student.get().getId(), optionalOrganization.get().getId());
         return new LoginResponseDTO(token, credentialFromDb.getRole());
 
     }

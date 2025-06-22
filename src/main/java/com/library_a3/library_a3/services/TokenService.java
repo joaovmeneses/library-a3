@@ -17,7 +17,7 @@ import java.time.ZoneOffset;
 public class TokenService {
     @Value("${api.security.token.secret}")
     private String secret;
-    public String generateToken(Credentials credentias, String userId) {
+    public String generateToken(Credentials credentias, String userId, String organizationId) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT
@@ -26,6 +26,7 @@ public class TokenService {
                     .withClaim("authority", credentias.getRole().toString())
                     .withClaim("credentialId", credentias.getId())
                     .withClaim("userId", userId)
+                    .withClaim("organizationId", organizationId)
                     .withSubject(credentias.getEmail())
                     .withExpiresAt(this.genExpirationDate())
                     .sign(algorithm);
@@ -67,6 +68,19 @@ public class TokenService {
                     .build()
                     .verify(token)
                     .getClaim("userId");
+        } catch (JWTVerificationException e) {
+            throw new JWTVerificationException("Error while validate Token");
+        }
+    }
+
+    public Claim getOrganzationId(String token) {
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(secret);
+            return JWT.require(algorithm)
+                    .withIssuer("auth-api")
+                    .build()
+                    .verify(token) 
+                    .getClaim("organizationId");
         } catch (JWTVerificationException e) {
             throw new JWTVerificationException("Error while validate Token");
         }
