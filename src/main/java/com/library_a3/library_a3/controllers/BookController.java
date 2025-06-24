@@ -2,7 +2,6 @@ package com.library_a3.library_a3.Controllers;
 
 import java.util.List;
 
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,7 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.library_a3.library_a3.domains.Book;
 import com.library_a3.library_a3.repositories.BookRepository;
 import com.library_a3.library_a3.services.DeleteBookService;
+import com.library_a3.library_a3.services.TokenService;
 import com.library_a3.library_a3.shared.dtos.CreateBookDTO;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 
 @CrossOrigin(origins = "*")
@@ -31,15 +33,24 @@ public class BookController {
     @Autowired
     private DeleteBookService deleteBookService;
 
+    @Autowired
+    private HttpServletRequest request;
+
+    @Autowired
+    private TokenService tokenService;
+
     @PostMapping()
     public Book create(@Validated @RequestBody CreateBookDTO body) {
-        Book book = new Book(body.title, body.author, body.category);
+        String token = request.getHeader("Authorization");
+        String organizationId = tokenService.getOrganizationId(token.replace("Bearer ", " ")).asString();
+        Book book = new Book(body.title, body.author, body.category, organizationId);
         return this.bookRepository.save(book);
     }
 
     @GetMapping()
     public List<Book> getAll() {
-        return this.bookRepository.findAllByDeletedAtIsNull();
+        String token = request.getHeader("Authorization");
+        return this.bookRepository.getAllBooksOrganization(tokenService.getOrganizationId(token.replace("Bearer ", "")).asString());
     }
 
     @GetMapping("/available")
