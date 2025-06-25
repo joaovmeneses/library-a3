@@ -2,6 +2,7 @@ package com.library_a3.library_a3.domains;
 
 import jakarta.persistence.*;
 import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.Date;
 import java.util.UUID;
@@ -10,6 +11,7 @@ import org.hibernate.annotations.UuidGenerator;
 @Getter
 @Setter
 @Entity(name="student")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString

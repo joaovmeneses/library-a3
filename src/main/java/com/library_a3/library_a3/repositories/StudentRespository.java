@@ -1,11 +1,12 @@
 package com.library_a3.library_a3.repositories;
 
-import com.library_a3.library_a3.domains.Student;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import java.util.List;
-import java.util.Optional;
+import com.library_a3.library_a3.domains.Student;
 
 public interface StudentRespository extends JpaRepository<Student, String> {
     Student findByPhone(String phone);
@@ -14,4 +15,7 @@ public interface StudentRespository extends JpaRepository<Student, String> {
 
     List<Student> findAllByDeletedAtIsNull();
     List<Student> findAllByDeletedAtIsNotNull();
+
+    @Query(value = "SELECT * FROM student e WHERE e.organization_id = :organizationId AND e.deleted_at IS NULL", nativeQuery= true)
+    List<Student> getAllStudentsOrganization(String organizationId);
 }

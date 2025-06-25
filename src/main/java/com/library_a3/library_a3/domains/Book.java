@@ -2,6 +2,7 @@ package com.library_a3.library_a3.domains;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.library_a3.library_a3.shared.enums.BookCategoryEnum;
 import com.library_a3.library_a3.shared.enums.BookStatusEnum;
 
@@ -16,6 +17,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity(name = "book")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -39,6 +41,7 @@ public class Book {
     private Date updatedAt;
     @Column(name = "deleted_at")
     private Date deletedAt;
+
 
     public Book(String title, String author, BookCategoryEnum category, String organizationId){
         this.title = title;
