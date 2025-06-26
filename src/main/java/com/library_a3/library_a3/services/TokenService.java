@@ -1,23 +1,24 @@
 package com.library_a3.library_a3.services;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import com.library_a3.library_a3.domains.Credentials;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 
 @Service
 public class TokenService {
     @Value("${api.security.token.secret}")
     private String secret;
-    public String generateToken(Credentials credentias, String userId) {
+    public String generateToken(Credentials credentias, String userId, String organizationId) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT
@@ -26,6 +27,7 @@ public class TokenService {
                     .withClaim("authority", credentias.getRole().toString())
                     .withClaim("credentialId", credentias.getId())
                     .withClaim("userId", userId)
+                    .withClaim("organizationId", organizationId)
                     .withSubject(credentias.getEmail())
                     .withExpiresAt(this.genExpirationDate())
                     .sign(algorithm);
@@ -67,6 +69,19 @@ public class TokenService {
                     .build()
                     .verify(token)
                     .getClaim("userId");
+        } catch (JWTVerificationException e) {
+            throw new JWTVerificationException("Error while validate Token");
+        }
+    }
+
+    public Claim getOrganizationId(String token) {
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(secret);
+            return JWT.require(algorithm)
+                    .withIssuer("auth-api")
+                    .build()
+                    .verify(token) 
+                    .getClaim("organizationId");
         } catch (JWTVerificationException e) {
             throw new JWTVerificationException("Error while validate Token");
         }

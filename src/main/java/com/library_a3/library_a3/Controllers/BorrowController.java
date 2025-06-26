@@ -2,7 +2,6 @@ package com.library_a3.library_a3.Controllers;
 
 import java.util.List;
 
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.library_a3.library_a3.domains.Borrow;
 import com.library_a3.library_a3.repositories.BorrowRepository;
+import com.library_a3.library_a3.services.TokenService;
 import com.library_a3.library_a3.services.borrows.BorrowBookService;
 import com.library_a3.library_a3.services.borrows.GetAllBorrowsService;
 import com.library_a3.library_a3.services.borrows.ReturnBorrowService;
@@ -42,6 +42,9 @@ public class BorrowController {
 
     @Autowired
     private ReturnBorrowService returnBorrowService;
+    
+    @Autowired
+    private TokenService tokenService;
 
     @PostMapping()
     public Borrow create(@Validated @RequestBody CreateBorrowDTO body) {
@@ -51,7 +54,7 @@ public class BorrowController {
     @GetMapping()
     public List<Borrow> getAll() {
         String token = request.getHeader("Authorization");
-        return this.getAllBorrowsService.execute(token.replace("Bearer ",""));
+        return this.borrowRepository.getAllBorrowsOrganization(tokenService.getOrganizationId(token.replace("Bearer ", "")).asString());
     }
 
     @PatchMapping("/{id}/return")
