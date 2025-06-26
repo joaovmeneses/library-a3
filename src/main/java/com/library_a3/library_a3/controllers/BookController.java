@@ -42,7 +42,7 @@ public class BookController {
     @PostMapping()
     public Book create(@Validated @RequestBody CreateBookDTO body) {
         String token = request.getHeader("Authorization");
-        String organizationId = tokenService.getOrganizationId(token.replace("Bearer ", " ")).asString();
+        String organizationId = tokenService.getOrganizationId(token.replace("Bearer ", "")).asString();
         Book book = new Book(body.title, body.author, body.category, organizationId);
         return this.bookRepository.save(book);
     }
