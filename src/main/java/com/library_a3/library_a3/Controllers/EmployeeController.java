@@ -36,7 +36,7 @@ public class EmployeeController {
     @PostMapping()
     public Employee create(@Validated @RequestBody CreateEmployeeDTO body) {
         String token = request.getHeader("Authorization");
-        String organizationId = tokenService.getOrganizationId(token.replace("Bearer ", " ")).asString();
+        String organizationId = tokenService.getOrganizationId(token.replace("Bearer ", "")).asString();
         return this.createEmployeeService.execute(body);
     }
 
