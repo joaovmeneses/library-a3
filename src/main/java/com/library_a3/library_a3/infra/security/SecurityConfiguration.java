@@ -48,6 +48,7 @@ public class SecurityConfiguration {
                                 .requestMatchers(HttpMethod.GET, "/borrows").hasAnyAuthority(Role.EMPLOYEE.toString(), Role.STUDENT.toString())
                                 .requestMatchers(HttpMethod.PATCH, "/borrows/{id}/return").hasAuthority(Role.EMPLOYEE.toString())
                                 .requestMatchers(HttpMethod.DELETE, "/books/{id}").hasAuthority(Role.EMPLOYEE.toString())
+                                .requestMatchers(HttpMethod.POST, "/reserve").permitAll()
                                 .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

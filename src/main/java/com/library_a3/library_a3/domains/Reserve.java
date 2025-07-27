@@ -55,5 +55,4 @@ public class Reserve {
         this.expiresAt = calendar.getTime();
     }
 
-
 }

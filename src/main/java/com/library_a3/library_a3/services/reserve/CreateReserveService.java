@@ -22,11 +22,15 @@ public class CreateReserveService {
     private BookRepository bookRepository;
 
     public Reserve execute(CreateReserveDTO data) {
+        System.out.println("DTO recebido:");
         Student student = this.studentRespository.findById(data.getStudentId())
-            .orElseThrow(() -> new RuntimeException("Student not found"));
+                .orElseThrow(() -> new RuntimeException("Student not found"));
 
         Book book = this.bookRepository.findById(data.getBookId())
-            .orElseThrow(() -> new RuntimeException("Book not found"));
+                .orElseThrow(() -> new RuntimeException("Book not found"));
+
+        System.out.println("StudentId: " + data.getStudentId());
+        System.out.println("BookId: " + data.getBookId());
 
         Reserve reserve = new Reserve(student.getId(), book.getId());
         return this.reserveRepository.save(reserve);
