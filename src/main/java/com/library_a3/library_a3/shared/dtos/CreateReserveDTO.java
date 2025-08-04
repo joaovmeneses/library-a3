@@ -6,7 +6,6 @@ import lombok.Getter;
 @Data
 @Getter
 public class CreateReserveDTO {
-
     private String studentId;
     private String bookId;
 }

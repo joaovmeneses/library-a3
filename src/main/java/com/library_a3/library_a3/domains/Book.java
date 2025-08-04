@@ -8,6 +8,8 @@ import com.library_a3.library_a3.shared.enums.BookStatusEnum;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -29,8 +31,10 @@ public class Book {
     private String title;
     @Column
     private String author;
+    @Enumerated(EnumType.STRING)
     @Column
     private BookCategoryEnum category;
+    @Enumerated(EnumType.STRING)
     @Column
     private BookStatusEnum status;
     @Column(name = "organization_id")

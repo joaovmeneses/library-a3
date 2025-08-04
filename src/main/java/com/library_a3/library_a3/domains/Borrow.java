@@ -21,7 +21,8 @@ public class Borrow {
     private String bookId;
     @Column(name = "student_id", nullable = false)
     private String studentId;
-    @Column()
+    @Enumerated(EnumType.STRING)
+    @Column(name="status")
     private BorrowStatusEnum status;
     @Column(name = "date_to_return")
     private Date dateToReturn;
