@@ -1,14 +1,20 @@
 package com.library_a3.library_a3.domains;
 
-import com.library_a3.library_a3.shared.dtos.CreateEmployeeDTO;
+import java.util.Date;
+
 import com.library_a3.library_a3.shared.enums.employees.EmployeeCategoryEnum;
-import jakarta.persistence.*;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.Date;
 
 @Entity(name = "employee")
 @Getter
@@ -20,6 +26,7 @@ public class Employee {
     String id;
     @Column
     String name;
+    @Enumerated(EnumType.STRING)
     @Column
     EmployeeCategoryEnum category;
     @Column(name = "credential_id")
