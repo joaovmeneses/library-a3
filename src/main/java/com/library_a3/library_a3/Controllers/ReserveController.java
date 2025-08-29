@@ -15,6 +15,7 @@ import com.library_a3.library_a3.domains.Reserve;
 import com.library_a3.library_a3.repositories.ReserveRepository;
 import com.library_a3.library_a3.services.TokenService;
 import com.library_a3.library_a3.services.reserve.CreateReserveService;
+import com.library_a3.library_a3.services.reserve.GetReservesService;
 import com.library_a3.library_a3.shared.dtos.CreateReserveDTO;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,11 +28,9 @@ public class ReserveController {
     @Autowired
     private CreateReserveService createReserveService;
     @Autowired
-    private TokenService tokenService;
-    @Autowired
     private HttpServletRequest request;
     @Autowired
-    private ReserveRepository reserveRepository;
+    private GetReservesService getReservesService;
 
     @PostMapping
     public ResponseEntity<Reserve> create(@Validated @RequestBody CreateReserveDTO body) {
@@ -43,6 +42,7 @@ public class ReserveController {
 
     @GetMapping
     public List<Reserve> getAll() {
-        return this.reserveRepository.findAllReserves();
+        String token = request.getHeader("Authorization").replace("Bearer ", "");
+        return this.getReservesService.execute(token);
     }
 }

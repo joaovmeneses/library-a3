@@ -24,6 +24,7 @@ public class Credentials implements UserDetails {
     private String email;
     @Column
     private String pass;
+    @Enumerated(EnumType.STRING)
     @Column
     private Role role;
     @Column(name = "created_at")
