@@ -25,4 +25,10 @@ public interface ReserveRepository extends JpaRepository<Reserve, String> {
             + "WHERE r.studentId = :studentId"
     )
     List<Reserve> findByStudentId(String studentId);
+
+    @Query(value = "SELECT r.id, r.book_id, r.student_id, r.organization_id, r.status, r.created_at, r.updated_at, r.date_to_return, r.deleted_at " +
+            "FROM reserve r " +
+            "WHERE r.organization_id = :organizationId AND b.deleted_at IS NULL",
+            nativeQuery = true)
+    List<Reserve> getAllReservesOrganization(String organizationId);
 }
